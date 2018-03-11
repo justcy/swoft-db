@@ -116,7 +116,7 @@ class MysqlConnection extends AbstractDbConnection
      *
      * @throws \InvalidArgumentException
      */
-    public function createConnection()
+    public function createConnect()
     {
         $uri                = $this->pool->getConnectionAddress();
         $options            = $this->parseUri($uri);
@@ -147,7 +147,7 @@ class MysqlConnection extends AbstractDbConnection
      */
     public function reconnect()
     {
-        $this->createConnection();
+        $this->createConnect();
     }
 
     /**

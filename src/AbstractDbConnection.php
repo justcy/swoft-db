@@ -3,12 +3,12 @@
 namespace Swoft\Db;
 
 use Swoft\Db\Exception\MysqlException;
-use Swoft\Pool\AbstractConnection;
+use Swoft\Pool\AbstractConnect;
 
 /**
  * Abstract database connection
  */
-abstract class AbstractDbConnection extends AbstractConnection implements DbConnectInterface
+abstract class AbstractDbConnection extends AbstractConnect implements DbConnectInterface
 {
     /**
      * Recv

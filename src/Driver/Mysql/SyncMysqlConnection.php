@@ -32,7 +32,7 @@ class SyncMysqlConnection extends AbstractDbConnection
     /**
      * Create connection
      */
-    public function createConnection()
+    public function createConnect()
     {
         $uri                = $this->pool->getConnectionAddress();
         $options            = $this->parseUri($uri);
