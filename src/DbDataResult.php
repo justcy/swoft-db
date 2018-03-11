@@ -6,26 +6,31 @@ use Swoft\Core\AbstractDataResult;
 use Swoft\Db\Helper\EntityHelper;
 
 /**
- * The sync result of db
+ * Class DbDataResult
+ *
+ * @package Swoft\Db
  */
 class DbDataResult extends AbstractDataResult
 {
     /**
      * @param array ...$params
-     *
      * @return mixed
      */
     public function getResult(...$params)
     {
-        $className = "";
+        $className = '';
         $result = $this->data;
-        if (!empty($params)) {
+        if (! empty($params)) {
             list($className) = $params;
         }
 
-        // fill data to entity
-        if (is_array($result) && !empty($className)) {
+        // Fill data to Entity
+        if (\is_array($result) && ! empty($className)) {
             $result = EntityHelper::resultToEntity($result, $className);
+        }
+
+        if($this->pool !== null && $this->connection !== null){
+            $this->pool->release($this->connection);
         }
 
         return $result;
