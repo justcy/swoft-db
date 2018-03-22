@@ -407,16 +407,16 @@ trait Statement
      * 没有括号条件处理
      *
      * @param string $operator
-     * @param  mixed $criterionVaue
+     * @param  mixed $criterionValue
      * @return bool|string
      */
-    protected function getCriteriaWithoutBracket(string $operator, $criterionVaue, $columnName)
+    protected function getCriteriaWithoutBracket(string $operator, $criterionValue, $columnName)
     {
         switch ($operator) {
             case self::BETWEEN:
             case self::NOT_BETWEEN:
-                $end = $this->getQuoteValue($criterionVaue[1]);
-                $start = $this->getQuoteValue($criterionVaue[0]);
+                $end = $this->getQuoteValue($criterionValue[1]);
+                $start = $this->getQuoteValue($criterionValue[0]);
                 $value = $start . ' ' . self::LOGICAL_AND . ' ' . $end;
                 break;
 
@@ -424,7 +424,7 @@ trait Statement
             case self::NOT_IN:
                 $value = self::BRACKET_OPEN;
                 // 数组处理
-                foreach ($criterionVaue ?? [] as $criterionValue) {
+                foreach ($criterionValue ?? [] as $criterionValue) {
                     $criterionValue = $this->getQuoteValue($criterionValue);
                     $value .= $criterionValue . ', ';
                 }
@@ -433,11 +433,11 @@ trait Statement
                 break;
             case self::IS:
             case self::IS_NOT:
-                $value = $criterionVaue;
+                $value = $criterionValue;
                 $value = $this->getQuoteValue($value);
                 break;
             default:
-                $value = $criterionVaue;
+                $value = $criterionValue;
                 $value = $this->getQuoteValue($value);
                 break;
         }
