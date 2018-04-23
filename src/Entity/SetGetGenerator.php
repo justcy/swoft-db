@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * This file is part of Swoft.
+ *
+ * @link     https://swoft.org
+ * @document https://doc.swoft.org
+ * @contact  group@swoft.org
+ * @license  https://github.com/swoft-cloud/swoft/blob/master/LICENSE
+ */
 namespace Swoft\Db\Entity;
 
 use Swoft\App;
@@ -36,7 +43,7 @@ class SetGetGenerator
     private $propertyStubFile = 'Property.stub';
 
     /**
-     * @var string $setterStub SettrStub
+     * @var string $setterStub SetterStub
      */
     private $setterStubFile = 'Setter.stub';
 
@@ -173,9 +180,6 @@ class SetGetGenerator
         $this->checkAliasProperty($aliasProperty);
 
         $formatComment = "     * @var {$phpType} \${$aliasProperty} {$comment}\n";
-        if (!empty($comment)) {
-            $formatComment = "     * @var {$phpType} \${$aliasProperty}\n";
-        }
 
         $this->propertyStub .= PHP_EOL . str_replace([
                 "{{comment}}\n",
@@ -208,6 +212,7 @@ class SetGetGenerator
     private function parseSetter(string $setterStub, array $fieldInfo)
     {
         $property      = $fieldInfo['name'];
+        $comment       = $fieldInfo['column_comment'];
         $aliasProperty = $property;
         $this->checkAliasProperty($aliasProperty);
         $function         = explode('_', $aliasProperty);
@@ -219,11 +224,13 @@ class SetGetGenerator
         $primaryKey       = $fieldInfo['key'] === 'PRI';
         $type             = $this->schema->phpSchema[$fieldInfo['type']] ?? 'mixed';
         $this->setterStub .= PHP_EOL . str_replace([
+                '{{comment}}',
                 '{{function}}',
                 '{{attribute}}',
                 '{{type}}',
                 '{{hasReturnType}}'
             ], [
+                $comment,
                 $function,
                 $aliasProperty,
                 $type !== 'mixed' ? "{$type} " : '',
@@ -241,6 +248,7 @@ class SetGetGenerator
     private function parseGetter(string $getterStub, array $fieldInfo)
     {
         $property      = $fieldInfo['name'];
+        $comment       = $fieldInfo['column_comment'];
         $aliasProperty = $property;
         $this->checkAliasProperty($aliasProperty);
         $function         = explode('_', $aliasProperty);
@@ -253,11 +261,13 @@ class SetGetGenerator
         $primaryKey       = $fieldInfo['key'] === 'PRI';
         $returnType       = $this->schema->phpSchema[$fieldInfo['type']] ?? 'mixed';
         $this->getterStub .= PHP_EOL . str_replace([
+                '{{comment}}',
                 '{{function}}',
                 '{{attribute}}',
                 '{{coReturnType}}',
                 '{{returnType}}',
             ], [
+                $comment,
                 $function,
                 $aliasProperty,
                 $returnType,

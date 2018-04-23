@@ -1,5 +1,12 @@
 <?php
-
+/**
+ * This file is part of Swoft.
+ *
+ * @link     https://swoft.org
+ * @document https://doc.swoft.org
+ * @contact  group@swoft.org
+ * @license  https://github.com/swoft-cloud/swoft/blob/master/LICENSE
+ */
 namespace Swoft\Db\Entity\Mysql;
 
 /**
@@ -27,7 +34,7 @@ class Schema extends \Swoft\Db\Entity\Schema
         'number'   => 'Types::NUMBER',
         'decimal'  => 'Types::NUMBER',
         'bool'     => 'Types::BOOLEAN',
-        'tinyint'  => 'Types::BOOLEAN',
+        'tinyint'  => 'Types::INT',
     ];
 
     /**
@@ -43,6 +50,6 @@ class Schema extends \Swoft\Db\Entity\Schema
         'number'   => self::TYPE_INT,
         'decimal'  => self::TYPE_INT,
         'bool'     => self::TYPE_BOOL,
-        'tinyint'  => self::TYPE_BOOL
+        'tinyint'  => self::TYPE_INT
     ];
 }
